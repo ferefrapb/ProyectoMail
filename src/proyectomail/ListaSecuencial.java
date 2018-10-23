@@ -22,11 +22,9 @@ import javax.swing.JOptionPane;
  * @author luisp
  */
 public class ListaSecuencial {
-    
-// <editor-fold defaultstate="collapsed" desc="Atributos">    
+      
         private String NombreUsuario;
         public List<String> Lista;
-    // </editor-fold>
         
         public ListaSecuencial(String usuario){
             

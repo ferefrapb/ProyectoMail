@@ -222,7 +222,7 @@ public class manejadorArchivo
                 try {
                     Linea=LeerArchivo.readLine();
                     String[] split;
-                    Usuario objUsuarioArchivo = new Usuario();
+                    Usuario objUsuarioArchivo = new Usuario(iObjUsuario.usuario);
                     if (Linea=="")
                     {
                         // Crear primer usuario de este programa
@@ -297,7 +297,7 @@ public class manejadorArchivo
                 try {
                     Linea=LeerArchivo.readLine();
                     String[] split;
-                    Usuario objUsuarioArchivo = new Usuario();
+                    Usuario objUsuarioArchivo = new Usuario(iUsuario);
                     
                         while(Linea != null)
                         {
@@ -547,7 +547,7 @@ public class manejadorArchivo
                 try {
                     Linea=LeerArchivo.readLine();
                     String[] split;
-                    Usuario objUsuarioArchivo = new Usuario();
+                    Usuario objUsuarioArchivo = new Usuario(User);
                     if (Linea=="")
                     {
                         // Crear primer usuario de este programa
@@ -607,7 +607,7 @@ public class manejadorArchivo
     
     public Usuario ObtenerUsuario(String User)
     {
-        Usuario user = new Usuario();
+        Usuario user = new Usuario(User);
         File pathFolderMEIA = new File("C:\\MEIA");
         String strPath = pathFolderMEIA + "/Usuario.txt";
         String strError = "";
@@ -622,7 +622,7 @@ public class manejadorArchivo
                 try {
                     Linea=LeerArchivo.readLine();
                     String[] split;
-                    Usuario objUsuarioArchivo = new Usuario();
+                    Usuario objUsuarioArchivo = new Usuario(User);
                     if (Linea=="")
                     {
                         // Crear primer usuario de este programa

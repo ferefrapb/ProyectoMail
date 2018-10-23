@@ -11,6 +11,9 @@ package proyectomail;
  */
 public class Usuario 
 {
+    public ListaSecuencial Lista;
+    public SecuencialIndizado ListaUsuario;
+    
     public String usuario;
     public String nombre;
     public String apellido;
@@ -23,6 +26,12 @@ public class Usuario
     //public String descripcion;
     public int estatus=1;
     
+    public Usuario(String Usuario)
+    {
+        this.usuario = Usuario;
+        Lista = new ListaSecuencial(this.usuario);
+        ListaUsuario = new SecuencialIndizado(this.usuario);
+    }
 
     //Set de Usuarios
     public void setUsuario(String usuario) {

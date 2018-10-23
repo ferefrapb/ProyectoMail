@@ -242,18 +242,18 @@ public class nuevoUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPassword1ActionPerformed
 
     private void btnRegistrarNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarNuevoUsuarioActionPerformed
-    
-    Usuario objUsuario= new Usuario();
+    String usuario = txtUsuario.getText().trim();
+    Usuario objUsuario= new Usuario(usuario);
     manejadorArchivo objManejadorArchivo = new manejadorArchivo();
     
     
-    String usuario = txtUsuario.getText();
-    String nombre = txtNombre.getText();
-    String apellido = txtApellido.getText();
+    
+    String nombre = txtNombre.getText().trim();
+    String apellido = txtApellido.getText().trim();
     char[] ps1 = txtPassword1.getPassword();
     String password1 = String.valueOf(ps1);
     char[] ps2 = txtPassword2.getPassword();
-    String password2 = String.valueOf(ps2);
+    String password2 = String.valueOf(ps2).trim();
     int rol=0;
     String fechaNacimiento = txtFechaNacimiento.getText();
     String correo = txtCorreo.getText();

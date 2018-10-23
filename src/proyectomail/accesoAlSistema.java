@@ -120,7 +120,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void entrarAlSistema()
+    private void entrarAlSistema(String User)
     {
         
         File pathFolderMEIA = new File("C:\\MEIA");
@@ -137,7 +137,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
                     try {
                         Linea=LeerArchivo.readLine();
                         String[] split;
-                        Usuario objUsuarioArchivo = new Usuario();
+                        Usuario objUsuarioArchivo = new Usuario(User);
                         if (Linea=="")
                         {
                             // Crear primer usuario de este programa
@@ -238,7 +238,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
         String cadenaUsuario = txtUsuario.getText();
         char[] ps1=txtPassword.getPassword();
         String cadenaPassword = String.valueOf(ps1);
-        Usuario objUsuario = new Usuario();
+        Usuario objUsuario = new Usuario(cadenaUsuario);
         objUsuario.usuario=cadenaUsuario;
         objUsuario.password=cadenaPassword;
         
@@ -248,8 +248,9 @@ public class accesoAlSistema extends javax.swing.JFrame {
         {
             if (archivoUsuario.verificarUsuarioYPassword(objUsuario)) 
             {
+                String User = objUsuario.usuario;
                 //metodo para entrar al sistema segun sea admin o usuario
-                entrarAlSistema();     
+                entrarAlSistema(User);     
                 
                 
                
