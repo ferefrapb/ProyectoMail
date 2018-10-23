@@ -252,7 +252,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
                 entrarAlSistema();     
                 
                 
-                
+               
             }
             else
             {
