@@ -247,7 +247,7 @@ public class SecuencialIndizado {
             Escritor.write("usuario_modificacion: "+NombreUsuario+" \r\n");
             Escritor.write("#_registros: 0 \r\n");
             Escritor.write("#_bloques: 0 \r\n");
-            Escritor.write("bloque_actual: 0 \r\n");
+            Escritor.write("bloque_actual: 1 \r\n");
             Escritor.write("registro_inicial: 0 \r\n");
             Escritor.write("registros_activos: 0 \r\n");
             Escritor.write("registros_inactivos: 0 \r\n");
@@ -311,7 +311,7 @@ public class SecuencialIndizado {
             
             Indice= new ArrayList();
            
-            Archivo=new File("C:\\MEIA\\desc_indice_lista_usuario.txt");
+            Archivo=new File("C:\\MEIA\\indice_lista_usuario.txt");
             if (!Archivo.exists()) 
             {
                  Archivo.createNewFile();
