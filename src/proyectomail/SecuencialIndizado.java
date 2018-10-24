@@ -53,16 +53,16 @@ public class SecuencialIndizado {
                 {
                     contenido= linea.split(Pattern.quote(":"));
                 switch (contenido[0]) {
-                    case "Registro inicial":
+                    case "registro_inicial":
                         PrimerRegistro=Integer.valueOf(contenido[1].trim());
                         break;
-                    case "Bloque Actual":
+                    case "bloque_actual":
                         BloqueActual=Integer.valueOf(contenido[1].trim());
                         break;   
-                    case "Número de registros activos":
+                    case "registros_activos":
                         RegistrosActivos=Integer.valueOf(contenido[1].trim());
                         break;
-                    case "Número de registros inactivos":
+                    case "registros_inactivos":
                         RegistrosInactivos=Integer.valueOf(contenido[1].trim());
                         break;
                 }
