@@ -8,6 +8,7 @@ package proyectomail;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -193,14 +194,14 @@ public class SecuencialIndizado {
         String linea;
         String [] contenido;
 
-        formatoFecha = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         String fechaCreacion = formatoFecha.format(fechaActual);
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 
         Archivo=new File("C:\\MEIA\\desc_lista_usuario_"+String.valueOf(NumeroBloque)+".txt");
         try
         {
-            creaDescriptorListaUsuario( NumeroBloque, UsuarioLogeado);
+            //creaDescriptorListaUsuario( NumeroBloque, UsuarioLogeado);
             Archivo=new File("C:\\MEIA\\desc_lista_usuario_"+String.valueOf(NumeroBloque)+".txt");
             Archivo.createNewFile();
 
@@ -956,5 +957,249 @@ public class SecuencialIndizado {
         }
     }
     
+    //Devuelve Usuario de Lista Índice
+    public List<String> DevolverUsuariosdeLista(String Lista)
+    {
+        String [] temp;
+        List<String> Listado=new ArrayList();
+        /*NuevoRegistro[0]=String.valueOf(NoRegistro);
+        NuevoRegistro[1]=String.valueOf(NumeroBloque)+"."+String.valueOf(NumeroEnBloque);
+        NuevoRegistro[2]=Lista;
+        NuevoRegistro[3]=this.NombreUsuario;;
+        NuevoRegistro[4]=Usuario;
+        NuevoRegistro[5]="-1";
+        NuevoRegistro[6]="1";*/
+         if (RegistrosActivos!=0) {
+            temp=Indice.get(PrimerRegistro-1);
+            if ((temp[3].trim().toUpperCase().compareTo(this.NombreUsuario.trim().toUpperCase()))==0 && (temp[2].trim().toUpperCase().compareTo(Lista.trim().toUpperCase()))==0 )
+                {
+                    Listado.add(temp[4]);
+                }   
+            while(!temp[5].equals("-1"))
+            {
+                temp=Indice.get(Integer.valueOf(temp[5])-1);
+                       
+                //Si el usuario es mas grande se ira al siguiente
+                if ((temp[3].trim().toUpperCase().compareTo(this.NombreUsuario.trim().toUpperCase()))==0 && (temp[2].trim().toUpperCase().compareTo(Lista.trim().toUpperCase()))==0 )
+                {
+                    Listado.add(temp[4]);
+                }     
+            }
+            }
+        return Listado;
+    }
+    
+     public void EliminacionUsuario(String Nombre)
+    {
+        try{
+            String [] temp;
+         
+             /*NuevoRegistro[0]=String.valueOf(NoRegistro);
+             NuevoRegistro[1]=String.valueOf(NumeroBloque)+"."+String.valueOf(NumeroEnBloque);
+             NuevoRegistro[2]=Lista;
+             NuevoRegistro[3]=this.NombreUsuario;;
+             NuevoRegistro[4]=Usuario;
+             NuevoRegistro[5]="-1";
+             NuevoRegistro[6]="1";*/
+            if (RegistrosActivos!=0) {
+            temp=Indice.get(PrimerRegistro-1);
+            if ((temp[3].trim().toUpperCase().compareTo(Nombre.trim().toUpperCase()))==0 || (temp[4].trim().toUpperCase().compareTo(Nombre.trim().toUpperCase()))==0 )
+                {
+                    EliminarRegistro(temp[3], temp[2], temp[4]);
+                }   
+            while(!temp[5].equals("-1"))
+            {
+                temp=Indice.get(Integer.valueOf(temp[5])-1);
+                       
+                //Si el usuario es mas grande se ira al siguiente
+                if ((temp[3].trim().toUpperCase().compareTo(Nombre.trim().toUpperCase()))==0 || (temp[4].trim().toUpperCase().compareTo(Nombre.trim().toUpperCase()))==0 )
+                {
+                    EliminarRegistro(temp[3], temp[2], temp[4]);
+                }        
+            }
+            }
+        }catch(Exception ex)
+        {
+            
+        }
+    }
+    
+    public void EliminarLista(String User, String NombreLista)
+    {
+        try{
+            String [] temp;
+            List<String> Listado=new ArrayList();;
+        
+            if (RegistrosActivos!=0) {
+            temp=Indice.get(PrimerRegistro-1);
+            if ((temp[4].trim().toUpperCase().compareTo(User.trim().toUpperCase()))==0 && (temp[2].trim().toUpperCase().compareTo(NombreLista.trim().toUpperCase()))==0 )
+                {
+                    EliminarRegistro(temp[3], temp[2], temp[4]);
+                }   
+            while(!temp[5].equals("-1"))
+            {
+                temp=Indice.get(Integer.valueOf(temp[5])-1);
+                       
+                //Si el usuario es mas grande se ira al siguiente
+                if ((temp[4].trim().toUpperCase().compareTo(User.trim().toUpperCase()))==0 && (temp[2].trim().toUpperCase().compareTo(NombreLista.trim().toUpperCase()))==0 )
+                {
+                    EliminarRegistro(temp[3], temp[2], temp[4]);
+                }       
+            }
+            }
+        }catch(Exception ex)
+        {
+            
+        }
+    }
+    
+    //Reorganiza Registros de Lista de Usuario
+     public void Reorganizar() throws FileNotFoundException, IOException
+    {
+        int NumeroBloques=0;
+        BufferedReader Lector;
+        RandomAccessFile Archivo;
+        BufferedWriter Escritor;
+        String linea;
+        String[] contenido;                
+            
+        for (int i = 1; i <= BloqueActual; i++) {
+            Archivo=new  RandomAccessFile("C:\\MEIA\\lista_usuario_"+String.valueOf(i)+".txt","rw");     
+            linea=Archivo.readLine();
+            int contador = 1;
+            while(linea!=null)
+            {
+                if (BloqueActual == i) {
+                    Archivo.close();
+                    EliminarVacios();
+                    actualizaIndiceListaUsuario();
+                    return;
+                }
+                contenido= linea.split(Pattern.quote("|"));
+                if(contenido[5].equals("0"))
+                {                           
+                    Archivo.seek(Archivo.getFilePointer()-linea.length() - 2);
+                    String registro = ObtenerUltimoRegistro();
+                    String[] contenidoRegistro = registro.split(Pattern.quote("|"));
+                    Archivo.writeBytes(registro + "\r\n");  
+                    Archivo.seek(Archivo.getFilePointer()-linea.length() - 2);
+                    for (String[] item : Indice ) {
+                        if ((item[2].equals(contenidoRegistro[0].replaceAll(" ", ""))) && (item[3].equals(contenidoRegistro[1].replaceAll(" ", ""))) && (item[4].equals(contenidoRegistro[2].replaceAll(" ", "")))) {
+                            item[1] = String.valueOf(i) + "." + String.valueOf(contador);
+                        }
+                    }              
+                }
+                else{
+                    contador++;                   
+                }
+                linea=Archivo.readLine();
+            }
+            Archivo.close();
+            actualizaIndiceListaUsuario();
+        }
+    
+    }
+     
+    //Elimina Registros Vacíos de Lista de Usuario 
+    private void EliminarVacios() throws FileNotFoundException, IOException
+    {
+        int NumeroBloques=0;
+        BufferedReader Lector;
+        File Archivo;
+        BufferedWriter Escritor;
+        String linea;
+        String[] contenido; 
+        int contador=0;
+        int contador2=1;
+        
+        Lector = new BufferedReader( new FileReader("C:\\MEIA\\lista_usuario_"+String.valueOf(BloqueActual)+".txt"));
+        Escritor = new BufferedWriter(new FileWriter("C:\\MEIA\\Templista_usuario_"+String.valueOf(BloqueActual)+".txt"));
+        linea = Lector.readLine();
+        while(linea != null){
+            contenido = linea.split(Pattern.quote("|"));
+            if (!contenido[5].equals("0")) {                
+                Escritor.write(linea);
+                Escritor.newLine();
+                for (String[] item : Indice ) {
+                        if ((item[2].equals(contenido[0].replaceAll(" ", ""))) && (item[3].equals(contenido[1].replaceAll(" ", ""))) && (item[4].equals(contenido[2].replaceAll(" ", "")))) {
+                            item[1] = String.valueOf(BloqueActual) + "." + String.valueOf(contador2);
+                        }
+                    } 
+                contador2++;
+            }
+            else{
+                contador--;
+            }
+            linea = Lector.readLine();
+        }
+        ActualizarDescriptorBloque(BloqueActual, contador);
+        Lector.close();
+        Escritor.close();
+        Archivo = new File("C:\\MEIA\\lista_usuario_"+String.valueOf(BloqueActual)+".txt");
+        Archivo.delete();
+        Archivo = new File("C:\\MEIA\\Templista_usuario_"+String.valueOf(BloqueActual)+".txt");
+        Archivo.renameTo(new File("C:\\MEIA\\lista_usuario_"+String.valueOf(BloqueActual)+".txt"));
+        //Agregar si todos los elementos del registro son 0
+        
+    }
+    
+    //
+    private String ObtenerUltimoRegistro() throws FileNotFoundException, IOException
+    {
+        int NumeroRegistros=0;
+        BufferedReader Lector;
+        File Archivo;
+        BufferedWriter Escritor;
+        String linea;
+        String Registro;
+        String[] contenido;
+        
+        Lector=new BufferedReader(new FileReader("C:\\MEIA\\desc_lista_usuario_"+String.valueOf(BloqueActual)+".txt"));
+        linea=Lector.readLine();
+        while(linea!=null)
+        {
+            contenido= linea.split(Pattern.quote(":"));
+            if(contenido[0].equals("#_registros"))
+            {
+                NumeroRegistros=Integer.valueOf(contenido[1].trim());
+                break;
+            }
+            linea=Lector.readLine();
+        }
+        Lector.close();
+
+        Lector=new BufferedReader(new FileReader("C:\\MEIA\\lista_usuario_"+String.valueOf(BloqueActual)+".txt"));        
+        for (int i = 0; i < NumeroRegistros; i++) {
+            linea=Lector.readLine();
+        }           
+        Registro = linea;
+        NumeroRegistros--;
+        Lector.close();
+        
+        if (NumeroRegistros > 0) {
+            Lector=new BufferedReader(new FileReader("C:\\MEIA\\lista_usuario_"+String.valueOf(BloqueActual)+".txt"));
+            Escritor=new BufferedWriter(new FileWriter("C:\\MEIA\\Templista_usuario_"+String.valueOf(BloqueActual)+".txt"));
+            for (int i = 0; i < NumeroRegistros; i++) {
+                Escritor.write(Lector.readLine());
+                Escritor.newLine();
+            }
+            Lector.close();
+            Escritor.close();
+            File archivot = new File("C:\\MEIA\\lista_usuario_"+String.valueOf(BloqueActual)+".txt");
+            archivot.delete();
+            archivot = new File("C:\\MEIA\\Templista_usuario_"+String.valueOf(BloqueActual)+".txt");
+            archivot.renameTo(new File("C:\\MEIA\\lista_usuario_"+String.valueOf(BloqueActual)+".txt"));
+            ActualizarDescriptorBloque(BloqueActual,-1);
+        }
+        else{
+            Archivo = new File("C:\\MEIA\\desc_lista_usuario_"+String.valueOf(BloqueActual)+".txt");
+            Archivo.delete();
+            Archivo = new File("C:\\MEIA\\lista_usuario_"+String.valueOf(BloqueActual)+".txt");
+            Archivo.delete();
+            BloqueActual--;           
+        }                                  
+         
+        return Registro;
+    }
     
 }

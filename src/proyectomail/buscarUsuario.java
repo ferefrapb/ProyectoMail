@@ -149,7 +149,7 @@ public class buscarUsuario extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        Usuario UsuarioaModificar = new Usuario();
+        Usuario UsuarioaModificar = new Usuario(txtBuscar.getText());
         manejadorArchivo manejador = new manejadorArchivo();
         UsuarioaModificar = manejador.ObtenerUsuario(txtBuscar.getText());
         if (UsuarioaModificar.usuario != null && !UsuarioaModificar.usuario.isEmpty()) {

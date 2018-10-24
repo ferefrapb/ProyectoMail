@@ -11,7 +11,7 @@ package proyectomail;
  */
 public class Usuario 
 {
-    public ListaSecuencial Lista;
+    public ListaSecuencial Listas;
     public SecuencialIndizado ListaUsuario;
     
     public String usuario;
@@ -29,7 +29,7 @@ public class Usuario
     public Usuario(String Usuario)
     {
         this.usuario = Usuario;
-        Lista = new ListaSecuencial(this.usuario);
+        Listas = new ListaSecuencial(this.usuario);
         ListaUsuario = new SecuencialIndizado(this.usuario);
     }
 

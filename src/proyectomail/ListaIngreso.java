@@ -16,6 +16,7 @@ public class ListaIngreso extends javax.swing.JFrame {
         this.usuario = usuario;
         
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     private ListaIngreso() {
@@ -37,7 +38,7 @@ public class ListaIngreso extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Ingreso de Lista de Distribución");
 

@@ -5,6 +5,8 @@
  */
 package proyectomail;
 
+import static proyectomail.menuUsuario.txtNombre;
+
 /**
  *
  * @author ferefrapb
@@ -40,6 +42,7 @@ public class menuAdmin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
         btnListas = new javax.swing.JButton();
+        bListaUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -97,6 +100,13 @@ public class menuAdmin extends javax.swing.JFrame {
             }
         });
 
+        bListaUsuario.setText("Lista Usuario");
+        bListaUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bListaUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,9 +129,11 @@ public class menuAdmin extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(btnSalir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCambiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnListas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bListaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnListas, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                .addComponent(btnCambiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,6 +173,8 @@ public class menuAdmin extends javax.swing.JFrame {
                             .addComponent(btnCrear))
                         .addGap(18, 18, 18)
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bListaUsuario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -201,6 +215,12 @@ public class menuAdmin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnListasActionPerformed
 
+    private void bListaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListaUsuarioActionPerformed
+        Usuario user = new Usuario(txtNombre.getText());
+        menuListaUsuario moduloListaUsuario = new menuListaUsuario(user);
+        moduloListaUsuario.setVisible(true);
+    }//GEN-LAST:event_bListaUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -238,6 +258,7 @@ public class menuAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bListaUsuario;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCambiar;
     private javax.swing.JButton btnCrear;

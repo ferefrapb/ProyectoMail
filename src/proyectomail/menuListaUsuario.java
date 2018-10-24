@@ -5,6 +5,10 @@
  */
 package proyectomail;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +24,9 @@ public class menuListaUsuario extends javax.swing.JFrame {
     Usuario User;
     public menuListaUsuario(Usuario user) {
         initComponents();
+        this.setLocationRelativeTo(null);
         User = user;
+        lLista.setListData((String[]) User.Listas.Lista.toArray());
     }
 
     /**
@@ -33,7 +39,7 @@ public class menuListaUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        bBuscar = new javax.swing.JButton();
+        bAgregarUsuario = new javax.swing.JButton();
         bGrabar = new javax.swing.JButton();
         bEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -42,6 +48,10 @@ public class menuListaUsuario extends javax.swing.JFrame {
         tfDescripcionLista = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         lLista = new javax.swing.JList<>();
+        cbUsuarioLista = new javax.swing.JComboBox<>();
+        tbAgregarEliminarUsuario = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        bReorganizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -49,7 +59,12 @@ public class menuListaUsuario extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Mantenimiento a Lista-Usuario");
 
-        bBuscar.setText("Buscar");
+        bAgregarUsuario.setText("Agregar Usuario");
+        bAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAgregarUsuarioActionPerformed(evt);
+            }
+        });
 
         bGrabar.setText("Grabar Lista");
         bGrabar.addActionListener(new java.awt.event.ActionListener() {
@@ -58,13 +73,32 @@ public class menuListaUsuario extends javax.swing.JFrame {
             }
         });
 
-        bEliminar.setText("Eliminar");
+        bEliminar.setText("Eliminar Usuario");
+        bEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Ingrese Nombre de Lista:");
 
         jLabel3.setText("Ingrese Descripción de la Lista");
 
         jScrollPane1.setViewportView(lLista);
+
+        jButton1.setText("Eliminar Lista");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        bReorganizar.setText("Reorganizar");
+        bReorganizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bReorganizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,7 +115,7 @@ public class menuListaUsuario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(117, 117, 117)
                                 .addComponent(bGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfDescripcionLista)
@@ -89,12 +123,18 @@ public class menuListaUsuario extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfNombreLista, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(bEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                                    .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jLabel3))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbUsuarioLista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tbAgregarEliminarUsuario)
+                                    .addComponent(bEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bAgregarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bReorganizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(71, 71, 71))))
         );
         layout.setVerticalGroup(
@@ -112,16 +152,22 @@ public class menuListaUsuario extends javax.swing.JFrame {
                 .addComponent(tfDescripcionLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(bGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bBuscar)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbUsuarioLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(tbAgregarEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
                         .addComponent(bEliminar)
-                        .addGap(95, 95, 95))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bAgregarUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bReorganizar))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,14 +186,83 @@ public class menuListaUsuario extends javax.swing.JFrame {
         {
             String NombreLista = tfNombreLista.getText().trim().replace("ñ", "n");
             String DescLista = tfDescripcionLista.getText().trim().replace("ñ", "n");
-            User.Lista.CrearLista(NombreLista, DescLista);
-            User.Lista = new ListaSecuencial(User.usuario);
-            lLista.setListData(User.Lista.Lista.toArray());
+            User.Listas.CrearLista(NombreLista, DescLista);
+            User.Listas = new ListaSecuencial(User.usuario);
+            lLista.setListData((String[]) User.Listas.Lista.toArray());
             lLista.setSelectedIndex(0);
-            tfNombreLista.setText("");
+            tfNombreLista.setText("")  ;
             tfDescripcionLista.setText("");
         }
     }//GEN-LAST:event_bGrabarActionPerformed
+
+    private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
+        try{
+            if (User.ListaUsuario.EliminarRegistro(User.usuario, lLista.getSelectedValue().toString(),cbUsuarioLista.getSelectedItem().toString() ))
+            {
+                User.Listas.ModificarTamañoLista(lLista.getSelectedValue().toString(),-1);
+                tbAgregarEliminarUsuario.setText("");
+                if (lLista.getSelectedIndex() != -1)
+                {
+
+                    cbUsuarioLista.removeAllItems();
+                    List<String> Listado = User.ListaUsuario.DevolverUsuariosdeLista(lLista.getSelectedValue().toString());
+                    for (int i = 0; i < Listado.size(); i++) {
+                        cbUsuarioLista.addItem(Listado.get(i));
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Se ha Eliminado el Usuario",
+                    "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane, "El usuario a Eliminar No Es Parte de la Lista", "Eliminación", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        }catch(Exception ex)
+        {
+
+        }
+    }//GEN-LAST:event_bEliminarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        cbUsuarioLista.removeAllItems();
+        User.Listas.EliminarLista(lLista.getSelectedValue().toString());
+        User.ListaUsuario.EliminarLista(User.usuario, lLista.getSelectedValue().toString());
+        User.Listas=new ListaSecuencial(User.usuario);
+        lLista.setListData((String[]) User.Listas.Lista.toArray());
+        if (0!=User.Listas.Lista.size())
+        {
+            lLista.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarUsuarioActionPerformed
+         if(tbAgregarEliminarUsuario.getText().trim().length()!=0)
+        {
+            //String NombreLista, String NombreUsuario, String Descripcion
+            if( User.ListaUsuario.InsertarRegistro(lLista.getSelectedValue().toString(), tbAgregarEliminarUsuario.getText().trim().toUpperCase(), tfDescripcionLista.getText()))
+            {
+                User.Listas.ModificarTamañoLista(lLista.getSelectedValue().toString(),1);
+                tbAgregarEliminarUsuario.setText("");
+                cbUsuarioLista.removeAllItems();
+                List<String> Listado = User.ListaUsuario.DevolverUsuariosdeLista(lLista.getSelectedValue().toString());
+                for (int i = 0; i < Listado.size(); i++) {
+                    cbUsuarioLista.addItem(Listado.get(i));
+                }
+                JOptionPane.showMessageDialog(null, "Se ha agregado el usuario",
+                    "Agregar en Lista", JOptionPane.INFORMATION_MESSAGE);
+            }else
+            JOptionPane.showMessageDialog(rootPane, "El Usuario ya es Parte de la Lista", "Agregar a Lista", JOptionPane.INFORMATION_MESSAGE, null);
+
+        }
+    }//GEN-LAST:event_bAgregarUsuarioActionPerformed
+
+    private void bReorganizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReorganizarActionPerformed
+        try {
+            User.ListaUsuario.Reorganizar();
+        } catch (IOException ex) {
+            Logger.getLogger(menuListaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bReorganizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,14 +299,18 @@ public class menuListaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bBuscar;
+    private javax.swing.JButton bAgregarUsuario;
     private javax.swing.JButton bEliminar;
     private javax.swing.JButton bGrabar;
+    private javax.swing.JButton bReorganizar;
+    private javax.swing.JComboBox<String> cbUsuarioLista;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> lLista;
+    private javax.swing.JTextField tbAgregarEliminarUsuario;
     private javax.swing.JTextField tfDescripcionLista;
     private javax.swing.JTextField tfNombreLista;
     // End of variables declaration//GEN-END:variables

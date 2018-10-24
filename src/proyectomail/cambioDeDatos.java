@@ -20,7 +20,7 @@ public class cambioDeDatos
 {
      public void cambiar(String usuario, String parametro, String cambiar) throws ParseException
     {
-        Usuario UsuarioaModificar = new Usuario();
+        Usuario UsuarioaModificar = new Usuario(usuario);
         manejadorArchivo manejador = new manejadorArchivo();
         UsuarioaModificar = manejador.ObtenerUsuario(usuario);
         String paramlowercase = parametro.toLowerCase();
