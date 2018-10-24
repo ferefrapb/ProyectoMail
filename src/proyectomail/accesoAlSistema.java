@@ -179,7 +179,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
                                             }
                                             
                                         }
-                                        objFormNuevo.txtNombre.setText(split[1]);
+                                        objFormNuevo.txtNombre.setText(split[0]);
                                         objFormNuevo.txtMostrarInfo.setText(lineaAEscribir);
                                         objFormNuevo.lblRol.setText(split[4]);
                                     }
@@ -204,7 +204,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
                                             }
                                             
                                         }
-                                        objFormNuevo.txtNombre.setText(split[1]);
+                                        objFormNuevo.txtNombre.setText(split[0]);
                                         objFormNuevo.txtMostrarInfo.setText(lineaAEscribir);
                                         objFormNuevo.lblRol.setText(split[4]);
                                     }
