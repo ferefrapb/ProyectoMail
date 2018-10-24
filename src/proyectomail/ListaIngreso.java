@@ -199,7 +199,11 @@ public class ListaIngreso extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre de lista.", "Ha ocurrido un error.", WIDTH );
         }else{
             
-            listas.VerificarRegistro(nombre);
+            if(listas.VerificarRegistro(nombre) != null)
+            {
+                JOptionPane.showMessageDialog(null, "Registro encontrado", "ÉXITO", WIDTH );
+            }
+            
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 

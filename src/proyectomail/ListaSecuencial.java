@@ -56,6 +56,7 @@ public class ListaSecuencial {
                     linea=Lector.readLine();
                 }
                 Lector.close();
+                
                 Lector = new BufferedReader(new FileReader("C:\\MEIA\\bitacora_lista.txt"));
                 linea=Lector.readLine();
                 while(linea!=null)
@@ -102,19 +103,19 @@ public class ListaSecuencial {
             
             //Descriptor de archivo maestro
             Escritor= new BufferedWriter(new FileWriter("C:\\MEIA\\desc_lista.txt"));
-            Escritor.write("Archivo: C://MEIA/lista.txt\r\n");
-            Escritor.write("Descripción: Listas de distribución.\r\n");
-            Escritor.write("Tipo: Archivo de datos\r\n");
-            Escritor.write("Organización: Secuencial\r\n");
-            Escritor.write("Autor: admin\r\n");
-            Escritor.write("Creado: " + formatoFecha.format(fechaActual) + "\r\n");
+            Escritor.write("Archivo: C://MEIA/lista.txt \r\n");
+            Escritor.write("Descripción: Listas de distribución. \r\n");
+            Escritor.write("Tipo: Archivo de datos \r\n");
+            Escritor.write("Organización: Secuencial \r\n");
+            Escritor.write("Autor: admin \r\n");
+            Escritor.write("Creado: " + fechaCreacion + "\r\n");
             Escritor.write("Modificado: " + formatoFecha.format(fechaActual) + "\r\n");
-            Escritor.write("Separador de campos: |\r\n");
-            Escritor.write("Llave: Nombre_lista, usuario\r\n");
-            Escritor.write("Orden: Ascendente\r\n");
-            Escritor.write("Registros activos: 0\r\n");
-            Escritor.write("Registros inactivos: 0\r\n");
-            Escritor.write("Máximo de registros x organización: 10\r\n");
+            Escritor.write("Separador de campos: | \r\n");
+            Escritor.write("Llave: Nombre_lista, usuario \r\n");
+            Escritor.write("Orden: Ascendente \r\n");
+            Escritor.write("Número de registros: 0 \r\n");
+            Escritor.write("Registros activos: 0 \r\n");
+            Escritor.write("Registros inactivos: 0 \r\n");
             Escritor.close();
                        
             //Bitacora del archivo maestro
@@ -127,18 +128,20 @@ public class ListaSecuencial {
             archivo.getParentFile().mkdirs(); 
             archivo.createNewFile();            
             Escritor= new BufferedWriter(new FileWriter("C:\\MEIA\\desc_bitacora_lista.txt"));
-            Escritor.write("Archivo: C://MEIA/bitacora_lista.txt\r\n");
-            Escritor.write("Descripción: Bitácora de listas de distribución.\r\n");
-            Escritor.write("Tipo: Archivo de datos\r\n");
-            Escritor.write("Organización: Apilo\r\n");
+            Escritor.write("Archivo: C://MEIA/bitacora_lista.txt \r\n");
+            Escritor.write("Descripción: Bitácora de listas de distribución. \r\n");
+            Escritor.write("Tipo: Archivo de datos \r\n");
+            Escritor.write("Organización: Apilo \r\n");
             Escritor.write("Autor: admin\r\n");
-            Escritor.write("Creado: " + formatoFecha.format(fechaActual) + "\r\n");
+            Escritor.write("Creado: " + fechaCreacion + "\r\n");
             Escritor.write("Modificado: " + formatoFecha.format(fechaActual) + "\r\n");
-            Escritor.write("Separador de campos: |\r\n");
-            Escritor.write("Llave: Nombre_lista, usuario\r\n");
-            Escritor.write("Orden: Ascendente\r\n");
-            Escritor.write("Registros activos: 0\r\n");
-            Escritor.write("Registros inactivos: 0\r\n");
+            Escritor.write("Separador de campos: | \r\n");
+            Escritor.write("Llave: Nombre_lista, usuario \r\n");
+            Escritor.write("Orden: Ascendente \r\n");
+            Escritor.write("Número de registros: 0 \r\n");
+            Escritor.write("Registros activos: 0 \r\n");
+            Escritor.write("Registros inactivos: 0 \r\n");
+            Escritor.write("Máximo de registros x organización: 5 \r\n");
             Escritor.close();
             
         }catch(Exception ex){
@@ -147,6 +150,219 @@ public class ListaSecuencial {
         }
     }
         
+        //Agregar un registro lista
+        public void CrearLista(String NombreLista, String Descripcion){
+                File Archivo;
+                BufferedReader Lector;
+                BufferedWriter Escritor;
+                String linea;       
+                String[] contenido;
+                Integer numReorg=0, numReg=0;
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                
+            try{
+
+                
+                if(VerificarRegistro(NombreLista) == null)
+                {
+                    Lector = new BufferedReader(new FileReader("C:\\MEIA\\desc_bitacora_lista.txt"));
+            
+                    linea = Lector.readLine();
+                    while(linea != null){
+                        contenido = linea.split(Pattern.quote(":"));
+                
+                        if(contenido[0].trim().equalsIgnoreCase("Máximo de registros x organización")){
+                            numReorg = Integer.parseInt(contenido[1].trim());
+                        }else if(contenido[0].trim().equalsIgnoreCase("Número de registros")){
+                            numReg = Integer.parseInt(contenido[1].trim());
+                           
+                        }
+                        linea = Lector.readLine();
+                    }
+                    
+                    Lector.close();
+                    
+                    if (numReg >= numReorg){
+                        
+                        Reorganizar();
+                    }
+
+                    
+                    Escritor = new BufferedWriter(new FileWriter("C:\\MEIA\\bitacora_lista.txt", true));
+                    contenido = new String[6];
+                    contenido[0] = NombreLista;
+                    contenido[1] = this.NombreUsuario;
+                    contenido[2] = Descripcion;
+                    contenido[3] = "0";
+                    contenido[4] = dateFormat.format(date);
+                    contenido[5] = "1";
+                    Escritor.write(Join(contenido,"|") + "\r\n");
+                    Escritor.close();
+                    
+                    ActualizarDescriptorBitacora(false,1);
+                    JOptionPane.showMessageDialog(null, "Lista añadida.", "Lista de Distribución.", JOptionPane.INFORMATION_MESSAGE, null);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Lista existente.", "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
+                }
+                  
+            }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
+                
+            }
+        }
+        
+        //Eliminar un registro lista.
+        public void EliminarLista(String NombreLista){
+            
+                RandomAccessFile Archivo;
+                BufferedReader Lector;
+                String linea;       
+                String[] contenido;
+            try{
+
+                
+                Archivo=new RandomAccessFile("C:\\MEIA\\lista.txt","rw");
+                linea=Archivo.readLine();
+                while(linea!=null)
+                {
+                    contenido = linea.split(Pattern.quote("|"));
+                    if(contenido[1].trim().equals(this.NombreUsuario)&& contenido[0].trim().equals(NombreLista)&&contenido[5].trim().equals("1"))
+                    {
+                        Archivo.seek(Archivo.getFilePointer()-3);
+                        Archivo.writeBytes("0");
+                        Archivo.close();
+                        ActualizarDescriptor(false,0,1,-1);
+                        JOptionPane.showMessageDialog(null, "Lista eliminada correctamente.", "Lista eliminada.", JOptionPane.INFORMATION_MESSAGE, null);
+                        return;
+                    }
+                    linea=Archivo.readLine();
+                }
+                Archivo.close();
+                
+                Archivo=new RandomAccessFile("C:\\MEIA\\bitacora_lista.txt","rw");
+                linea=Archivo.readLine();
+                while(linea!=null)
+                {
+                    contenido = linea.split(Pattern.quote("|"));
+                    if(contenido[1].trim().equals(this.NombreUsuario)&& contenido[0].trim().equals(NombreLista)&&contenido[5].trim().equals("1"))
+                    {
+                        Archivo.seek(Archivo.getFilePointer()-3);
+                        Archivo.writeBytes("0");
+                        Archivo.close();
+                        ActualizarDescriptorBitacora(false,0);
+                        Archivo.close();
+                        JOptionPane.showMessageDialog(null, "Lista eliminada correctamente.", "Lista eliminada.", JOptionPane.INFORMATION_MESSAGE, null);
+                        return;
+                    }
+                    linea=Archivo.readLine();
+                }  
+                Archivo.close();
+                JOptionPane.showMessageDialog(null, "Lista no encontrada.",
+                           "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE);
+                
+            }catch(Exception ex){
+               JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
+                
+            }
+        }
+        
+        //Verificar que exista.
+        public String VerificarRegistro(String NombreLista){
+            try{
+                File Archivo;
+                BufferedReader Lector;
+                String linea;       
+                String[] contenido;
+                
+                Lector=new BufferedReader(new FileReader("C:\\MEIA\\bitacora_lista.txt"));
+                linea=Lector.readLine();
+                while(linea!=null){
+                    contenido = linea.split(Pattern.quote("|"));
+                    if(contenido[1].toUpperCase().equals(this.NombreUsuario.toUpperCase())){
+                        if( contenido[0].toUpperCase().equals(NombreLista.toUpperCase()) && contenido[5].equals("1"))
+                        {
+                            Lector.close();
+                            return linea;
+                        }
+                    }
+                    linea=Lector.readLine();
+                }
+                Lector.close();
+                
+                //Buscará en el maestro.
+                Lector=new BufferedReader(new FileReader("C:\\MEIA\\lista.txt"));
+                linea=Lector.readLine();
+                while(linea!=null){
+                    contenido = linea.split(Pattern.quote("|"));
+                    if(contenido[1].toUpperCase().equals(this.NombreUsuario)){
+                        if( contenido[0].toUpperCase().equals(NombreLista) && contenido[5].equals("1"))
+                        {
+                            Lector.close();
+                            return linea;
+                        }
+                    }
+                    linea=Lector.readLine();
+                }
+                Lector.close();
+                  
+            }catch(Exception ex){
+                   JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
+                
+            }
+            return null;
+        }
+        
+        //Modifca archivo descriptor del archivo lista
+        public void ModificarDescripcionLista(String NombreLista, String NuevaDescripcion){
+                RandomAccessFile Archivo;
+                String linea;       
+                String[] contenido;
+                int ubicacion=0;
+                Reorganizar();
+            
+             try{
+                 
+                Archivo = new RandomAccessFile("C:\\MEIA\\lista.txt","rw");
+                linea = Archivo.readLine();
+                
+                while(linea != null)
+                {
+                    contenido = linea.split(Pattern.quote("|"));
+                    
+                    if(contenido[1].trim().equals(this.NombreUsuario) && contenido[0].trim().equals(NombreLista) && contenido[5].trim().equals("1"))
+                    {
+                        Archivo.seek(ubicacion);
+                        contenido[2] = (NuevaDescripcion + "                                        ").substring(0, 40);    
+                        Archivo.writeBytes(Join(contenido,"|") + "\r\n");
+                        Archivo.close();
+                        ActualizarDescriptor(false,0,0,0);
+
+                        Archivo.close();
+                        JOptionPane.showMessageDialog(null, "Cambios hechos correctamente.",
+                           "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        return;
+                    }
+                    ubicacion = ubicacion+linea.length()+2;
+                    linea=Archivo.readLine();
+                    
+                }
+                
+                Archivo.close();
+                
+                JOptionPane.showMessageDialog(null, "La lista no ha sido encontrada",
+                           "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE);
+                
+            }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE, null);
+                
+            }
+        }
+        
+        //Actualiza el archivo descriptor de la bitacora del archivo lista
         private void ActualizarDescriptorBitacora(boolean SeReorganiza, int NuevosRegistros){
             
             File Archivo;
@@ -173,7 +389,7 @@ public class ListaSecuencial {
                             formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
                             linea=contenido[0] + ": " + formatoFecha.format(fechaActual);
                             
-                        }else if(contenido[0].equals("Registros activos"))
+                        }else if(contenido[0].equals("Número de registros"))
                         {
                             if(SeReorganiza)
                             {
@@ -202,8 +418,8 @@ public class ListaSecuencial {
             
         }
         
-        private void ActualizarDescriptor(boolean SeReorganiza, int Registros, int RegistrosInactivos, int RegistrosActivos)
-        {
+        //Actualiza el archivo descripto del archivo listar.
+        private void ActualizarDescriptor(boolean SeReorganiza, int Registros, int RegistrosInactivos, int RegistrosActivos){
             try{
                 File Archivo;
                 BufferedReader Lector;
@@ -226,7 +442,7 @@ public class ListaSecuencial {
                             formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
                             linea=contenido[0]+": "+formatoFecha.format(fechaActual);
                         }
-                        else if(contenido[0].equals("Registros activos"))
+                        else if(contenido[0].equals("Número de registros"))
                         {
                             if(!SeReorganiza)
                             {
@@ -272,121 +488,13 @@ public class ListaSecuencial {
                 
             }catch(Exception ex)
             {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE, null);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
                 
             }
         }
         
-        public void CrearLista(String NombreLista, String Descripcion)
-        {
-                File Archivo;
-                BufferedReader Lector;
-                BufferedWriter Escritor;
-                String linea;       
-                String[] contenido;
-                Integer numReorg=0, numReg=0;
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = new Date();
-                
-            try{
-
-                
-                if(VerificarRegistro(NombreLista)==null)
-                {
-                    Lector = new BufferedReader(new FileReader("C:\\MEIA\\desc_bitacora_lista.txt"));
-            
-                    linea = Lector.readLine();
-                    while(linea != null){
-                        contenido = linea.split(Pattern.quote(":"));
-                
-                        if(contenido[0].trim().equalsIgnoreCase("Máximo de registros x organización")){
-                            numReorg = Integer.parseInt(contenido[1].trim());
-                        }else if(contenido[0].trim().equalsIgnoreCase("Registros Activos")){
-                            numReg = Integer.parseInt(contenido[1].trim());
-                            break;
-                        }
-                        linea = Lector.readLine();
-                    }
-                    Lector.close();
-                    
-                    if (numReg >= numReorg){
-                        
-                        Reorganizar();
-                    }
-
-                    
-                    Escritor = new BufferedWriter(new FileWriter("C:\\MEIA\\bitacora_lista.txt", true));
-                    contenido = new String[6];
-                    contenido[0] = NombreLista;
-                    contenido[1] = this.NombreUsuario;
-                    contenido[2] = Descripcion;
-                    contenido[3] = "0";
-                    contenido[4] = dateFormat.format(date);
-                    contenido[5] = "1";
-                    Escritor.write(Join(contenido,"|") + "\r\n");
-                    Escritor.close();
-                    
-                    ActualizarDescriptorBitacora(false,1);
-                    JOptionPane.showMessageDialog(null, "Lista añadida", "Lista de Distribución.", JOptionPane.INFORMATION_MESSAGE, null);
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "Lista existente.", "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
-                }
-                  
-            }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
-                
-            }
-        }
-        
-        public String VerificarRegistro(String NombreLista)
-        {
-            try{
-                File Archivo;
-                BufferedReader Lector;
-                String linea;       
-                String[] contenido;
-                
-                Lector=new BufferedReader(new FileReader("C:\\MEIA\\bitacora_lista.txt"));
-                linea=Lector.readLine();
-                while(linea!=null){
-                    contenido = linea.split(Pattern.quote("|"));
-                    if(contenido[0].toUpperCase().equals(this.NombreUsuario.toUpperCase())){
-                        if( contenido[1].toUpperCase().equals(NombreLista.toUpperCase()) && contenido[5].equals("1"))
-                        {
-                            Lector.close();
-                            return linea;
-                        }
-                    }
-                    linea=Lector.readLine();
-                }
-                Lector.close();
-                //Si no lo encuentra en la bitacora lo buscara en el archivo original
-                Lector=new BufferedReader(new FileReader("C:\\MEIA\\lista.txt"));
-                linea=Lector.readLine();
-                while(linea!=null){
-                    contenido = linea.split(Pattern.quote("|"));
-                    if(contenido[0].toUpperCase().equals(this.NombreUsuario)){
-                        if( contenido[1].toUpperCase().equals(NombreLista) && contenido[5].equals("1"))
-                        {
-                            Lector.close();
-                            return linea;
-                        }
-                    }
-                    linea=Lector.readLine();
-                }
-                Lector.close();
-                  
-            }catch(Exception ex){
-                   JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
-                
-            }
-            return null;
-        }
-        
-        public void Reorganizar()
-        {
+        //Reorganiza el archivo lista.
+        public void Reorganizar(){
             try{
             // Variables Locales
             List<String> ListasBitacora = new ArrayList();
@@ -459,7 +567,7 @@ public class ListaSecuencial {
                     // Si esta en la bitacora agrega el nuevo elemento con tamaÃ±o no variable
                     contenido = ListasBitacora.get(0).split(Pattern.quote("|"));
                     contenido[0] = (contenido[0] + "                              ").substring(0, 30);
-                    contenido[1] = (contenido[1] + "                     ").substring(0, 20);
+                    contenido[1] = (contenido[1] + "                    ").substring(0, 20);
                     contenido[2] = (contenido[2] + "                                        ").substring(0, 40);
                     int t=("  " + contenido[3]).length();
                     contenido[3] = ("  " + contenido[3]).substring(t-3, t);
@@ -467,7 +575,8 @@ public class ListaSecuencial {
                     numActivos++;
                     ListasBitacora.remove(0);
                 }else{
-                    //Se asume que al estar en el lista.txt ya esta en el tamaÃ±o fijo
+                    
+                    //Se asume que al estar en el lista.txt ya esta en el tamaño fijo
                     escritor.write(ListasRegistros.get(0)+"\r\n");
                     contenido = ListasRegistros.get(0).split(Pattern.quote("|"));
                     if (contenido[5].trim().equals("1"))
@@ -484,8 +593,8 @@ public class ListaSecuencial {
             }else{
                 for (String temp : ListasBitacora){
                     contenido = temp.split(Pattern.quote("|"));
-                    contenido[0] = (contenido[0] + "                             ").substring(0, 30);
-                    contenido[1] = (contenido[1] + "                      ").substring(0, 20);
+                    contenido[0] = (contenido[0] + "                              ").substring(0, 30);
+                    contenido[1] = (contenido[1] + "                    ").substring(0, 20);
                     contenido[2] = (contenido[2] + "                                        ").substring(0, 40);
                     int t=("  " + contenido[3]).length();
                     contenido[3] = ("  " + contenido[3]).substring(t-3, t);
@@ -507,6 +616,7 @@ public class ListaSecuencial {
             {
             vNueva.renameTo(new File("C:\\MEIA\\lista.txt"));         
             }
+            
             // Elimina la bitacora y crea una nueva vacia.
             vAnterior = new File("C:\\MEIA\\bitacora_lista.txt");
             vAnterior.delete();
@@ -516,13 +626,13 @@ public class ListaSecuencial {
             vNueva.createNewFile();
             
         }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE, null);
-                        
+            
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
         }
         }
         
-        private String Join(String [] contenido, String caracter)
-        {
+        //JOIN - union colocando de por medio un caracter
+        private String Join(String [] contenido, String caracter){
         String junto="";
         junto=contenido[0];
         for (int i = 1; i < contenido.length; i++) {
@@ -532,6 +642,8 @@ public class ListaSecuencial {
         }
         return junto;
     }
+        
+        //comprar dos objetos.
         public int compare(Object obj1, Object obj2) {
             
                 String[] espacios1, espacios2;
@@ -553,62 +665,8 @@ public class ListaSecuencial {
                     return salida;
             }
         
-        public void EliminarLista(String NombreLista){
-            
-                RandomAccessFile Archivo;
-                BufferedReader Lector;
-                String linea;       
-                String[] contenido;
-            try{
-
-                
-                Archivo=new RandomAccessFile("C:\\MEIA\\lista.txt","rw");
-                linea=Archivo.readLine();
-                while(linea!=null)
-                {
-                    contenido = linea.split(Pattern.quote("|"));
-                    if(contenido[1].trim().equals(this.NombreUsuario)&& contenido[0].trim().equals(NombreLista)&&contenido[5].trim().equals("1"))
-                    {
-                        Archivo.seek(Archivo.getFilePointer()-3);
-                        Archivo.writeBytes("0");
-                        Archivo.close();
-                        ActualizarDescriptor(false,0,1,-1);
-                        JOptionPane.showMessageDialog(null, "Lista eliminada correctamente.", "Lista eliminada.", JOptionPane.INFORMATION_MESSAGE, null);
-                        return;
-                    }
-                    linea=Archivo.readLine();
-                }
-                Archivo.close();
-                
-                 Archivo=new RandomAccessFile("C:\\MEIA\\bitacora_lista.txt","rw");
-                linea=Archivo.readLine();
-                while(linea!=null)
-                {
-                    contenido = linea.split(Pattern.quote("|"));
-                    if(contenido[1].trim().equals(this.NombreUsuario)&& contenido[0].trim().equals(NombreLista)&&contenido[5].trim().equals("1"))
-                    {
-                        Archivo.seek(Archivo.getFilePointer()-3);
-                        Archivo.writeBytes("0");
-                        Archivo.close();
-                        ActualizarDescriptorBitacora(false,0);
-                        Archivo.close();
-                        JOptionPane.showMessageDialog(null, "Lista eliminada correctamente.", "Lista eliminada.", JOptionPane.INFORMATION_MESSAGE, null);
-                        return;
-                    }
-                    linea=Archivo.readLine();
-                }  
-                Archivo.close();
-                JOptionPane.showMessageDialog(null, "Lista no encontrada.",
-                           "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE);
-                
-            }catch(Exception ex){
-               JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
-                
-            }
-        }
-        
-        public void ModificarTamañoLista(String NombreLista, int CambioTamaño)
-        {
+        //Modificar el tamaño de la lista.
+        public void ModificarTamañoLista(String NombreLista, int CambioTamaño){
             
                 RandomAccessFile Archivo;
                 String linea;       
@@ -626,9 +684,9 @@ public class ListaSecuencial {
                     if(contenido[1].trim().equals(this.NombreUsuario) && contenido[0].trim().equals(NombreLista) && contenido[5].trim().equals("1"))
                     {
                         Archivo.seek(ubicacion);
-                        contenido[0] = (contenido[0] + "                               ").substring(0, 30);
-                        contenido[1] = (contenido[1] + "                      ").substring(0, 20);
-                        contenido[2] = (contenido[2] + "                                         ").substring(0, 40);
+                        contenido[0] = (contenido[0] + "                              ").substring(0, 30);
+                        contenido[1] = (contenido[1] + "                    ").substring(0, 20);
+                        contenido[2] = (contenido[2] + "                                        ").substring(0, 40);
                         
                         int valor = Integer.valueOf(contenido[3].trim())  +CambioTamaño;
                         int t=("  "+valor).length();
@@ -649,56 +707,10 @@ public class ListaSecuencial {
                 JOptionPane.showMessageDialog(null, "La lista no ha sido encontrada",
                            "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE);
             }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE, null);
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE, null);
                 
             }
         }
         
-        public void ModificarDescripcionLista(String NombreLista, String NuevaDescripcion)
-        {
-                RandomAccessFile Archivo;
-                String linea;       
-                String[] contenido;
-                int ubicacion=0;
-                Reorganizar();
-            
-             try{
-                 
-                Archivo = new RandomAccessFile("C:\\MEIA\\lista.txt","rw");
-                linea = Archivo.readLine();
-                
-                while(linea != null)
-                {
-                    contenido = linea.split(Pattern.quote("|"));
-                    
-                    if(contenido[1].trim().equals(this.NombreUsuario) && contenido[0].trim().equals(NombreLista) && contenido[5].trim().equals("1"))
-                    {
-                        Archivo.seek(ubicacion);
-                        contenido[2] = (NuevaDescripcion + "                                         ").substring(0, 20);    
-                        Archivo.writeBytes(Join(contenido,"|") + "\r\n");
-                        Archivo.close();
-                        ActualizarDescriptor(false,0,0,0);
-
-                        Archivo.close();
-                        JOptionPane.showMessageDialog(null, "Cambios hechos correctamente.",
-                           "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE);
-                        
-                        return;
-                    }
-                    ubicacion = ubicacion+linea.length()+2;
-                    linea=Archivo.readLine();
-                    
-                }
-                
-                Archivo.close();
-                
-                JOptionPane.showMessageDialog(null, "La lista no ha sido encontrada",
-                           "Ocurrió un error.", JOptionPane.INFORMATION_MESSAGE);
-                
-            }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE, null);
-                
-            }
-        }
         
 }
