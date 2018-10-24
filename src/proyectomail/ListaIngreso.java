@@ -24,6 +24,7 @@ public class ListaIngreso extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -184,8 +185,6 @@ public class ListaIngreso extends javax.swing.JFrame {
             
             listas.ModificarDescripcionLista(nombre, desc);
         }
-        
-        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
