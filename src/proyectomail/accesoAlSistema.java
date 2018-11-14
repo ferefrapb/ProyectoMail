@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
@@ -17,9 +20,12 @@ import javax.swing.ImageIcon;
  */
 public class accesoAlSistema extends javax.swing.JFrame {
 
-    public accesoAlSistema() {
+    public accesoAlSistema() throws ClassNotFoundException, SQLException {
         initComponents();
+        
         this.setLocationRelativeTo(null);
+        
+        BDD.getInstancia().conexion();
     }
 
     /**
@@ -316,7 +322,13 @@ public class accesoAlSistema extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new accesoAlSistema().setVisible(true);
+                try {
+                    new accesoAlSistema().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(accesoAlSistema.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(accesoAlSistema.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
