@@ -71,7 +71,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Corrupted Data Mail");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Prueba ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -99,7 +99,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
                                 .addComponent(btnIngresar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1)))
-                        .addContainerGap(17, Short.MAX_VALUE))
+                        .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -125,7 +125,7 @@ public class accesoAlSistema extends javax.swing.JFrame {
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -305,13 +305,21 @@ public class accesoAlSistema extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        try {
-            BDD.getInstancia().Insert(9, 2, "lp", "Alexrod9", "asunto", "mensaje");
+        
+        //EnviarGrupos abrir = new EnviarGrupos();
+        
+        //abrir.setVisible(true);
+        
+        
+                try {
+            BDD.getInstancia().Insert(9, 1, "lp", "pAlvarado", "88888", "mensaje");
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(accesoAlSistema.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(accesoAlSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -9,6 +9,10 @@ package proyectomail;
  * @author Josue Higueros
  */
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -73,6 +77,9 @@ public class Listener extends Thread {
                                     
                                     //metodo para buscar aqui
                                     
+                                    existe = BuscarUsuario(Receptor);
+                                    
+                                    
                                     if(existe){
                                         
                                 BDD.getInstancia().Update(id, existe);
@@ -96,12 +103,6 @@ public class Listener extends Thread {
                                 }
 
                              
-                                //ACA USTEDES DEBEN GESTIONAR A DONDE ENVIAR LOS DATOS OBTENIDOS DE LA NOTIFICACION PARA MOSTRARLOS EN LA BANDEJA DE ENTRADA
-                                
-                                
-                                
-                                
-                                
                                 //si es para mi enviar el update con la respuesta de que el usuario existe
                                 //Deben de validar cada uno si el usuario existe o no en su ordenador y enviar la respuesta de esta forma al servidor
                                 if(existe){
@@ -133,10 +134,12 @@ public class Listener extends Thread {
                                     BDD.getInstancia().setMensaje("El grupo " + GrupoReceptor + " no ha encontrado el usuario al cual enviaste el correo." );
                                     Not = new Notificacion();
                                     Not.setVisible(true);
+                                    
                                  }else{
                                     BDD.getInstancia().setMensaje("El grupo " + GrupoReceptor + " ha recibido el mensaje." );
                                     Not = new Notificacion();
                                     Not.setVisible(true);
+                                    
                                  }
                                  
                                  //Para Eliminar la solicitud (NO ES NECESARIO, OPCIONAL)
@@ -154,5 +157,64 @@ public class Listener extends Thread {
                 Logger.getLogger(Listener.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    private Boolean BuscarUsuario(String usuario){
+        
+        File arch = new File("C:/MEIA/Usuario.txt");
+        FileReader Leer;
+        BufferedReader bLeer;
+        String linea;
+        String[] campos;
+        Boolean bandera = false;
+        
+        try{
+            
+            Leer = new FileReader(arch);
+            bLeer = new BufferedReader(Leer);
+            
+            linea = bLeer.readLine();
+            
+            if(linea == null){   
+                
+                return false;     
+                
+            }
+            else{         
+                                
+                while(linea != null){
+                    
+                    campos = linea.split("\\|");
+                    
+                    if((campos[0].equals(usuario))){ 
+                        
+                        bandera = true;
+                        break;                       
+                    }          
+                    linea = bLeer.readLine();
+                }
+                
+                Leer.close();
+                bLeer.close();
+                
+                if(bandera)
+                {
+                    
+                    return true;
+                    
+                }
+                else
+                {                   
+                    return false;
+                    
+                }
+            }
+            
+        }
+        catch(IOException ex){
+        
+        return false;
+        }
+        
     }
 }
