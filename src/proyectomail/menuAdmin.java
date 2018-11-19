@@ -5,6 +5,9 @@
  */
 package proyectomail;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static proyectomail.menuUsuario.txtNombre;
 
 /**
@@ -276,12 +279,21 @@ public class menuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEnviarLocalActionPerformed
 
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
-        BandejaEntrada bEntrada = new BandejaEntrada(txtNombre.getText());
-        bEntrada.setVisible(true);
+        try {
+            BandejaEntrada bEntrada = new BandejaEntrada(txtNombre.getText());
+            bEntrada.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(menuAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEntradaActionPerformed
 
     private void btnEnviadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviadosActionPerformed
-        // TODO add your handling code here:
+        try {
+            BandejaSalida bSalida = new BandejaSalida(txtNombre.getText());
+            bSalida.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(menuAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEnviadosActionPerformed
 
     /**

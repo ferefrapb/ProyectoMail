@@ -5,6 +5,7 @@
  */
 package proyectomail;
 
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,10 +18,12 @@ public class BandejaEntrada extends javax.swing.JFrame {
     String usuario ="";
     ArbolBinario Arbolito;
     
-    public BandejaEntrada(String Usuario) {
+    public BandejaEntrada(String Usuario) throws IOException {
         this.usuario = Usuario.trim();
         initComponents();
         lUsuario.setText(this.usuario);
+        User = new Usuario(this.usuario);
+        Arbolito = new ArbolBinario("C:\\MEIA\\Mensajes.txt", "Izquierda|Derecha|Receptor|Emisor|Fecha|Mensaje|Estatus", "|");
         this.setLocationRelativeTo(null);
         ActualizarBandeja();
         try
@@ -31,21 +34,21 @@ public class BandejaEntrada extends javax.swing.JFrame {
             if(!lUsuario.getText().isEmpty()){
                 while(Bandera && i < User.MensajesRecibidos.size())
                 {
-                    if(User.MensajesRecibidos.get(i)[0].equals(lUsuario.getText().trim()))
-                    {
+                    /*if(User.MensajesRecibidos.get(i)[0].equals(lUsuario.getText().trim()))
+                    {*/
                         if (jBandejaEntrada.getText().length()!=0)
                         {
                             jBandejaEntrada.append("\n\r"+"\n\r");
                         }
                         jBandejaEntrada.append(User.MensajesRecibidos.get(i)[0]+":\n\r"+User.MensajesRecibidos.get(i)[2]+"\n\r"+User.MensajesRecibidos.get(i)[1]);
-                    }
+                    /*}
                     else
-                    {
+                    {*/
                         if (!jBandejaEntrada.getText().equals(""))
                         {
                             Bandera=false;
                         }
-                    }
+                    /*}*/
                     i++;
                 }
             }

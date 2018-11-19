@@ -5,6 +5,7 @@
  */
 package proyectomail;
 
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,12 +16,16 @@ public class BandejaSalida extends javax.swing.JFrame {
 
     Usuario User;
     String usuario ="";
+    ArbolBinario Arbolito;
     
-    public BandejaSalida(String Usuario) {
+    public BandejaSalida(String Usuario) throws IOException {
         this.usuario = Usuario.trim();
         initComponents();
         lUsuario.setText(this.usuario);
+        User = new Usuario(this.usuario);
+        Arbolito = new ArbolBinario("C:\\MEIA\\Mensajes.txt", "Izquierda|Derecha|Receptor|Emisor|Fecha|Mensaje|Estatus", "|");
         this.setLocationRelativeTo(null);
+        ActualizarBandeja();
         try
         {
             boolean Bandera=true;
@@ -29,24 +34,41 @@ public class BandejaSalida extends javax.swing.JFrame {
             if(!lUsuario.getText().isEmpty()){
                 while(Bandera && i < User.MensajesEnviados.size())
                 {
-                    if(User.MensajesEnviados.get(i)[0].equals(lUsuario.getText().trim()))
-                    {
+                    /*if(User.MensajesRecibidos.get(i)[0].equals(lUsuario.getText().trim()))
+                    {*/
                         if (jBandejaSalida.getText().length()!=0)
                         {
                             jBandejaSalida.append("\n\r"+"\n\r");
                         }
                         jBandejaSalida.append(User.MensajesEnviados.get(i)[0]+":\n\r"+User.MensajesEnviados.get(i)[2]+"\n\r"+User.MensajesEnviados.get(i)[1]);
-                    }
+                    /*}
                     else
-                    {
+                    {*/
                         if (!jBandejaSalida.getText().equals(""))
                         {
                             Bandera=false;
                         }
-                    }
+                    /*}*/
                     i++;
                 }
             }
+        }catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Mensaje de Error", JOptionPane.ERROR_MESSAGE, null);
+        }
+    }
+    
+     private void ActualizarBandeja()
+    {
+        try
+        {
+            String[] linea;
+            User.MensajesEnviados=Arbolito.ObtenerMensajesEnviados(lUsuario.getText());
+            for (int i = 0; i < User.MensajesEnviados.size(); i++) 
+            {
+                linea=User.MensajesEnviados.get(i);
+            }
+            
         }catch(Exception ex)
         {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Mensaje de Error", JOptionPane.ERROR_MESSAGE, null);

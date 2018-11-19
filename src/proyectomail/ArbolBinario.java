@@ -310,14 +310,66 @@ public class ArbolBinario {
         return ListaDatos;
     }
     
+    public List<String[]> ObtenerMensajesEnviados(String Emisor) throws IOException{
+        List<String[]> ListaDatos = new ArrayList();
+        if (Raiz == -1) {
+            return ListaDatos;
+        }
+        String Registro = ObtenerRegistro(Raiz);        
+        String[] datos;
+        boolean centinela = false;
+        int Actual = Raiz;
+        String[] Obj1 = new String[3];
+        Obj1[0] = Emisor;
+        Obj1[1] = "";
+        Obj1[2] = "";
+        do{
+            datos = Registro.split(Pattern.quote("|")); 
+            if (datos[3].trim().equals(Emisor)) {
+                ListaDatos.addAll(BusquedaRecursiva(Actual, Emisor));
+                centinela = true;
+            }          
+            else{                
+                String[] Obj2 = new String[3];
+                Obj2[0] = datos[2];
+                Obj2[1] = datos[3];
+                Obj2[2] = datos[4];
+                
+                if (Comparar(Obj1, Obj2)) {
+                    Actual = Integer.parseInt(datos[1].trim());
+                    if (Actual != -1) {
+                        Registro = ObtenerRegistro(Actual);  
+                    }
+                    else{
+                        return ListaDatos;
+                    }
+                }
+                else{
+                    Actual = Integer.parseInt(datos[0].trim());
+                    if (Actual != -1) {
+                         Registro = ObtenerRegistro(Actual);  
+                    } 
+                    else{
+                        return ListaDatos;
+                    }
+                }
+            }
+        } while(!centinela);
+        return ListaDatos;
+    }
+    
     private List<String[]> BusquedaRecursiva(int nodo, String Receptor) throws IOException{
         String Registro = ObtenerRegistro(nodo);
         List<String[]> ListaDatos = new ArrayList();
         String[] datos;
         datos = Registro.split(Pattern.quote("|")); 
+        datos[0] = datos[0].replaceAll("[^0-9]", "");
+        if (datos[0].equals("")) {
+         datos[0] = "-1";
+      }
        if (!datos[0].trim().equals("-1")) {
             ListaDatos.addAll(BusquedaRecursiva(Integer.valueOf(datos[0].trim()), Receptor));
-            }
+            
             if (datos[6].trim().equals("1")) {
                 String[] datosEncontrados = new String[3];
                 datosEncontrados[0] = datos[3].trim();
@@ -327,7 +379,8 @@ public class ArbolBinario {
             }
             if (!datos[1].trim().equals("-1")) {
                 ListaDatos.addAll(BusquedaRecursiva(Integer.valueOf(datos[1].trim()), Receptor));
-            }         
+            }   
+            }
         return ListaDatos;
     }
     
