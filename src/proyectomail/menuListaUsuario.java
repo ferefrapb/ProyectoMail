@@ -247,6 +247,10 @@ public class menuListaUsuario extends javax.swing.JFrame {
     private void bAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarUsuarioActionPerformed
          if(tbAgregarEliminarUsuario.getText().trim().length()!=0)
         {
+            if (tfDescripcionLista.getText().isEmpty()||tfDescripcionLista.getText().equals("")) 
+            {
+                tfDescripcionLista.setText("Sin Descripción");
+            }
             //String NombreLista, String NombreUsuario, String Descripcion
             if( User.ListaUsuario.InsertarRegistro(lLista.getSelectedValue().toString(), tbAgregarEliminarUsuario.getText().trim().toUpperCase(), tfDescripcionLista.getText()))
             {

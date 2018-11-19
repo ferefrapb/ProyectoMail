@@ -164,6 +164,10 @@ public class SecuencialIndizado {
                             Integer nR=Integer.valueOf(contenido[1].trim());
                             linea=contenido[0]+": "+String.valueOf(nR+NuevosRegistros);
                             break;
+                        case "registros_activos":
+                            Integer nRA=Integer.valueOf(contenido[1].trim())+1;
+                            linea=contenido[0]+": "+String.valueOf(nRA);
+                            break;
                     }
                         Escritor.write(linea+"\r\n");   
                         linea=Lector.readLine();
@@ -749,7 +753,7 @@ public class SecuencialIndizado {
                 
                 Archivo=new File("C:\\MEIA\\desc_indice_lista_usuario.txt");
                 Lector=new BufferedReader(new FileReader("C:\\MEIA\\desc_indice_lista_usuario.txt"));
-                Escritor = new BufferedWriter(new FileWriter("C:\\MEIA\\desc_indice_lista_usuario.txt"));
+                Escritor = new BufferedWriter(new FileWriter("C:\\MEIA\\desc_indice_lista_usuario_temp.txt"));
                     linea=Lector.readLine();
                     while(linea!=null)
                     {
@@ -971,19 +975,33 @@ public class SecuencialIndizado {
         NuevoRegistro[6]="1";*/
          if (RegistrosActivos!=0) {
             temp=Indice.get(PrimerRegistro-1);
-            if ((temp[3].trim().toUpperCase().compareTo(this.NombreUsuario.trim().toUpperCase()))==0 && (temp[2].trim().toUpperCase().compareTo(Lista.trim().toUpperCase()))==0 )
+            /*if ((temp[3].trim().toUpperCase().compareTo(this.NombreUsuario.trim().toUpperCase()))==0 && (temp[2].trim().toUpperCase().compareTo(Lista.trim().toUpperCase()))==0 )
                 {
                     Listado.add(temp[4]);
+                }*/  
+            if ((temp[3].trim().toUpperCase().compareTo(this.NombreUsuario.trim().toUpperCase()))==0)
+                {
+                    //if ((temp[2].trim().toUpperCase().compareTo(Lista.trim().toUpperCase()))==0 ) {
+                        Listado.add(temp[4]);
+                    //}
+                    
                 }   
             while(!temp[5].equals("-1"))
             {
                 temp=Indice.get(Integer.valueOf(temp[5])-1);
                        
-                //Si el usuario es mas grande se ira al siguiente
-                if ((temp[3].trim().toUpperCase().compareTo(this.NombreUsuario.trim().toUpperCase()))==0 && (temp[2].trim().toUpperCase().compareTo(Lista.trim().toUpperCase()))==0 )
+                //Si el usuario es lmas grande se ira al siguiente
+                /*if ((temp[3].trim().toUpperCase().compareTo(this.NombreUsuario.trim().toUpperCase()))==0 && (temp[2].trim().toUpperCase().compareTo(Lista.trim().toUpperCase()))==0 )
                 {
                     Listado.add(temp[4]);
-                }     
+                } */ 
+                if ((temp[3].trim().toUpperCase().compareTo(this.NombreUsuario.trim().toUpperCase()))==0 )
+                {
+                    //if ((temp[2].trim().toUpperCase().compareTo(Lista.trim().toUpperCase()))==0) {
+                        Listado.add(temp[4]);
+                    //}
+                    
+                }  
             }
             }
         return Listado;
