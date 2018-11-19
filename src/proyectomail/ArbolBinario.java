@@ -56,9 +56,9 @@ public class ArbolBinario {
             Escritor = new BufferedWriter(new FileWriter(Descriptor));
             WriteLine("Nombre del archivo:" + nombreArchivo);                
             WriteLine("Fecha y hora de creación:" + Formato.format(new Date()));    
-            WriteLine("Fecha de Ãºltima modificación:" + Formato.format(new Date()));
+            WriteLine("Fecha de Última modificación:" + Formato.format(new Date()));
             WriteLine("Raiz:-1");     
-            WriteLine("NÃºmero de Registros:0");
+            WriteLine("Número de Registros:0");
             WriteLine("Registros Activos:0");
             WriteLine("Registros Inactivos:0");
             WriteLine("Metadatos:" + metadato);
@@ -100,17 +100,17 @@ public class ArbolBinario {
     
     private void ActualizarDescriptor() throws IOException{
         
-        File Temp = new File(Descriptor.getParent() + "\\Temp" + Descriptor.getName());
+        File Temp = new File("C:/MEIA/TempDesc_arbolbinario.txt");
         Lector = new BufferedReader(new FileReader(Descriptor));
         Escritor = new BufferedWriter(new FileWriter(Temp));  
         WriteLine(Lector.readLine());         
         WriteLine(Lector.readLine());
         Lector.readLine();
-        WriteLine("Fecha de Ãºltima modificaciÃ³n:" + Formato.format(new Date()));
+        WriteLine("Fecha de última modificación:" + Formato.format(new Date()));
         Lector.readLine();
         WriteLine("Raiz:" + String.valueOf(Raiz));
         Lector.readLine();
-        WriteLine("NÃºmero de Registros:" + String.valueOf(Registros));
+        WriteLine("Número de Registros:" + String.valueOf(Registros));
         Lector.readLine();
         WriteLine("Registros Activos:" + String.valueOf(Activos));
         Lector.readLine();
@@ -121,8 +121,8 @@ public class ArbolBinario {
         Escritor.close();
         
         Descriptor.delete();
-        Temp.renameTo(new File(Archivo.getParent() + "\\Desc_" + Archivo.getName()));
-        Descriptor = new File(Archivo.getParent() + "\\Desc_" + Archivo.getName());
+        Temp.renameTo(new File("C:/MEIA/Desc_arbolbinario.txt"));
+        Descriptor = new File("C:/MEIA/Desc_arbolbinario.txt");
     }
     
     public void Insertar(String Receptor, String Emisor, String Fecha, String Mensaje) throws IOException{
