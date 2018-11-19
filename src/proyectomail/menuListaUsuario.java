@@ -88,6 +88,11 @@ public class menuListaUsuario extends javax.swing.JFrame {
 
         jLabel3.setText("Ingrese Descripción de la Lista:");
 
+        lLista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lListaValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lLista);
 
         jButton1.setText("Eliminar Lista");
@@ -267,6 +272,27 @@ public class menuListaUsuario extends javax.swing.JFrame {
             Logger.getLogger(menuListaUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bReorganizarActionPerformed
+
+    private void lListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lListaValueChanged
+        
+        try{
+
+            if (lLista.getSelectedIndex() != -1)
+            {
+
+                cbUsuarioLista.removeAllItems();
+                List<String> Listado = User.ListaUsuario.DevolverUsuariosdeLista(lLista.getSelectedValue().toString());
+                for (int i = 0; i < Listado.size(); i++) {
+                    cbUsuarioLista.addItem(Listado.get(i));
+                }
+            }
+
+        }catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Mensaje de Error", JOptionPane.ERROR_MESSAGE, null);
+        }
+        
+    }//GEN-LAST:event_lListaValueChanged
 
     /**
      * @param args the command line arguments

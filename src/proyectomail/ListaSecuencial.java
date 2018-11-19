@@ -49,7 +49,7 @@ public class ListaSecuencial {
                 while(linea!=null)
                 {
                     contenido = linea.split(Pattern.quote("|"));
-                    if(contenido[1].toUpperCase().trim().equals(this.NombreUsuario) && contenido[5].equals("1"))
+                    if(contenido[1].toUpperCase().trim().equals(this.NombreUsuario.toUpperCase().trim()) && contenido[5].equals("1"))
                     {
                         Lista.add(contenido[0].trim());
                     }
@@ -62,7 +62,7 @@ public class ListaSecuencial {
                 while(linea!=null)
                 {
                     contenido = linea.split(Pattern.quote("|"));
-                    if(contenido[1].toUpperCase().trim().equals(this.NombreUsuario) && contenido[5].equals("1"))
+                    if(contenido[1].toUpperCase().trim().equals(this.NombreUsuario.toUpperCase().trim()) && contenido[5].equals("1"))
                     {
                         Lista.add(contenido[0]);
                     }

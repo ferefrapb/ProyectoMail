@@ -5,6 +5,8 @@
  */
 package proyectomail;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author ferefrapb
@@ -14,7 +16,7 @@ public class ProyectoMail {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         // TODO code application logic here
         accesoAlSistema formAccesoSistema = new accesoAlSistema();
         formAccesoSistema.setVisible(true);
