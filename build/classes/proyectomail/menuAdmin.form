@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -48,10 +48,8 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="bListaUsuario" pref="151" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnListas" pref="151" max="32767" attributes="0"/>
-                              <Component id="btnCambiar" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btnListas" pref="151" max="32767" attributes="0"/>
+                          <Component id="btnCambiar" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -65,6 +63,19 @@
                   </Group>
               </Group>
               <EmptySpace pref="24" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnEnviados" max="32767" attributes="0"/>
+                  <Component id="btnEntrada" min="-2" pref="151" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnEnviarLocal" max="32767" attributes="0"/>
+                  <Component id="btnEnviarFuera" min="-2" pref="147" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,7 +120,20 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="bListaUsuario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btnEnviados" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnEntrada" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btnEnviarLocal" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnEnviarFuera" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -219,6 +243,26 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bListaUsuarioActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEnviarLocal">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enviar Correo Local"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEnviarFuera">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enviar Correo Fuera"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEntrada">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bandeja de Entrada"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEnviados">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bandeja de Enviados"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

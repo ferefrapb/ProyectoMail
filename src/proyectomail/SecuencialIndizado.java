@@ -345,7 +345,7 @@ public class SecuencialIndizado {
                            "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+     
     //Inserta el registro en los archivos correspondientes
     public Boolean InsertarRegistro(String NombreLista, String NombreUsuario, String Descripcion)
     {
@@ -356,7 +356,7 @@ public class SecuencialIndizado {
             {
                 if (EsListaUsuarioValida(BloqueActual)) 
                 {
-                    
+                                 
                     Num=InsertaListaUsuario(NombreLista, NombreUsuario, Descripcion, BloqueActual);
                 }
                 else

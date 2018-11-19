@@ -43,24 +43,32 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="bListaUsuario" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton1" max="32767" attributes="0"/>
-                              <Component id="bBaja" max="32767" attributes="0"/>
-                              <Component id="btnCambiar" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jButton1" max="32767" attributes="0"/>
+                          <Component id="bBaja" max="32767" attributes="0"/>
+                          <Component id="btnCambiar" max="32767" attributes="0"/>
+                          <Component id="btnEnviados" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnEntrada" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblFoto" pref="200" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="169" max="32767" attributes="0"/>
                       <Component id="btnBuscar" min="-2" pref="113" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblFoto" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnEnviarFuera" max="32767" attributes="0"/>
+                          <Component id="btnEnviarLocal" alignment="0" min="-2" pref="129" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -105,10 +113,23 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="bListaUsuario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="bListaUsuario" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnEnviados" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnEntrada" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="btnEnviarLocal" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnEnviarFuera" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -219,6 +240,26 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bListaUsuarioActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEntrada">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bandeja de Entrada"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEnviados">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bandeja de Enviados"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEnviarLocal">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enviar Correo Local"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEnviarFuera">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enviar Correo Fuera"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
