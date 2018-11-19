@@ -269,9 +269,6 @@ public class accesoAlSistema extends javax.swing.JFrame {
                 String User = objUsuario.usuario;
                 //metodo para entrar al sistema segun sea admin o usuario
                 entrarAlSistema(User);     
-                
-                
-               
             }
             else
             {

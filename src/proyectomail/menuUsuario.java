@@ -112,6 +112,11 @@ public class menuUsuario extends javax.swing.JFrame {
         btnEnviados.setText("Bandeja de Enviados");
 
         btnEnviarLocal.setText("Enviar Correo Local");
+        btnEnviarLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarLocalActionPerformed(evt);
+            }
+        });
 
         btnEnviarFuera.setText("Enviar Correo Fuera");
 
@@ -238,6 +243,12 @@ public class menuUsuario extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEnviarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarLocalActionPerformed
+        
+        nuevoCorreoLocal nuevocorreo = new nuevoCorreoLocal(txtNombre.getText());
+        nuevocorreo.setVisible(true);
+    }//GEN-LAST:event_btnEnviarLocalActionPerformed
     /**
      * @param args the command line arguments
      */

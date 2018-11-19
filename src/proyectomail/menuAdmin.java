@@ -112,6 +112,11 @@ public class menuAdmin extends javax.swing.JFrame {
         });
 
         btnEnviarLocal.setText("Enviar Correo Local");
+        btnEnviarLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarLocalActionPerformed(evt);
+            }
+        });
 
         btnEnviarFuera.setText("Enviar Correo Fuera");
 
@@ -251,6 +256,14 @@ public class menuAdmin extends javax.swing.JFrame {
         menuListaUsuario moduloListaUsuario = new menuListaUsuario(user);
         moduloListaUsuario.setVisible(true);
     }//GEN-LAST:event_bListaUsuarioActionPerformed
+
+    private void btnEnviarLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarLocalActionPerformed
+
+        nuevoCorreoLocal nuevocorreo = new nuevoCorreoLocal(txtNombre.getText());
+        nuevocorreo.setVisible(true);
+        
+        
+    }//GEN-LAST:event_btnEnviarLocalActionPerformed
 
     /**
      * @param args the command line arguments
