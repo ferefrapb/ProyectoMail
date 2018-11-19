@@ -9,39 +9,37 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author luisp
+ * @author Desk
  */
-public class BandejaEntrada extends javax.swing.JFrame {
+public class BandejaSalida extends javax.swing.JFrame {
 
     Usuario User;
     String usuario ="";
-    ArbolBinario Arbolito;
     
-    public BandejaEntrada(String Usuario) {
+    public BandejaSalida(String Usuario) {
         this.usuario = Usuario.trim();
         initComponents();
         lUsuario.setText(this.usuario);
         this.setLocationRelativeTo(null);
-        ActualizarBandeja();
         try
         {
             boolean Bandera=true;
             int i=0;
-            jBandejaEntrada.setText("");
+            jBandejaSalida.setText("");
             if(!lUsuario.getText().isEmpty()){
-                while(Bandera && i < User.MensajesRecibidos.size())
+                while(Bandera && i < User.MensajesEnviados.size())
                 {
-                    if(User.MensajesRecibidos.get(i)[0].equals(lUsuario.getText().trim()))
+                    if(User.MensajesEnviados.get(i)[0].equals(lUsuario.getText().trim()))
                     {
-                        if (jBandejaEntrada.getText().length()!=0)
+                        if (jBandejaSalida.getText().length()!=0)
                         {
-                            jBandejaEntrada.append("\n\r"+"\n\r");
+                            jBandejaSalida.append("\n\r"+"\n\r");
                         }
-                        jBandejaEntrada.append(User.MensajesRecibidos.get(i)[0]+":\n\r"+User.MensajesRecibidos.get(i)[2]+"\n\r"+User.MensajesRecibidos.get(i)[1]);
+                        jBandejaSalida.append(User.MensajesEnviados.get(i)[0]+":\n\r"+User.MensajesEnviados.get(i)[2]+"\n\r"+User.MensajesEnviados.get(i)[1]);
                     }
                     else
                     {
-                        if (!jBandejaEntrada.getText().equals(""))
+                        if (!jBandejaSalida.getText().equals(""))
                         {
                             Bandera=false;
                         }
@@ -55,24 +53,6 @@ public class BandejaEntrada extends javax.swing.JFrame {
         }
     }
 
-    private void ActualizarBandeja()
-    {
-        try
-        {
-            String[] linea;
-            User.MensajesRecibidos=Arbolito.ObtenerMensajes(lUsuario.getText());
-            for (int i = 0; i < User.MensajesRecibidos.size(); i++) 
-            {
-                linea=User.MensajesRecibidos.get(i);
-            }
-            
-        }catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Mensaje de Error", JOptionPane.ERROR_MESSAGE, null);
-        }
-    }
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,39 +63,35 @@ public class BandejaEntrada extends javax.swing.JFrame {
     private void initComponents() {
 
         lUsuario = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jBandejaEntrada = new javax.swing.JTextArea();
+        jBandejaSalida = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lUsuario.setText("Usuario");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Bandeja de Entrada");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Bandeja de Salida");
 
-        jBandejaEntrada.setColumns(20);
-        jBandejaEntrada.setRows(5);
-        jScrollPane1.setViewportView(jBandejaEntrada);
+        jBandejaSalida.setColumns(20);
+        jBandejaSalida.setRows(5);
+        jScrollPane1.setViewportView(jBandejaSalida);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 90, Short.MAX_VALUE)))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -123,10 +99,10 @@ public class BandejaEntrada extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -150,27 +126,27 @@ public class BandejaEntrada extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BandejaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BandejaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BandejaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BandejaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BandejaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BandejaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BandejaEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BandejaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BandejaEntrada().setVisible(true);
+                new BandejaSalida().setVisible(true);
             }
-        });*/
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea jBandejaEntrada;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextArea jBandejaSalida;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lUsuario;
     // End of variables declaration//GEN-END:variables

@@ -121,8 +121,18 @@ public class menuAdmin extends javax.swing.JFrame {
         btnEnviarFuera.setText("Enviar Correo Fuera");
 
         btnEntrada.setText("Bandeja de Entrada");
+        btnEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntradaActionPerformed(evt);
+            }
+        });
 
         btnEnviados.setText("Bandeja de Enviados");
+        btnEnviados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviadosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,6 +274,15 @@ public class menuAdmin extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnEnviarLocalActionPerformed
+
+    private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
+        BandejaEntrada bEntrada = new BandejaEntrada(txtNombre.getText());
+        bEntrada.setVisible(true);
+    }//GEN-LAST:event_btnEntradaActionPerformed
+
+    private void btnEnviadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEnviadosActionPerformed
 
     /**
      * @param args the command line arguments

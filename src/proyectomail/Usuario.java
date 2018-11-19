@@ -5,6 +5,8 @@
  */
 package proyectomail;
 
+import java.util.List;
+
 /**
  *
  * @author ferefrapb
@@ -25,12 +27,15 @@ public class Usuario
     public String pathFotografia;
     //public String descripcion;
     public int estatus=1;
+    public List<String[]>  MensajesRecibidos;
+    public List<String[]>  MensajesEnviados;
     
     public Usuario(String Usuario)
     {
         this.usuario = Usuario;
         Listas = new ListaSecuencial(this.usuario);
         ListaUsuario = new SecuencialIndizado(this.usuario);
+        
     }
 
     //Set de Usuarios

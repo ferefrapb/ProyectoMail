@@ -261,11 +261,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Bandeja de Entrada"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEntradaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEnviados">
       <Properties>
         <Property name="text" type="java.lang.String" value="Bandeja de Enviados"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviadosActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
