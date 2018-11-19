@@ -48,15 +48,15 @@ public class ArbolBinario {
         tamaño = ConvertirACadena(" ", " ", Formato.format(new Date()), " ").length() + 2;
         LineasVacias = new ArrayList();
         
-        Archivo = new File(nombreArchivo);
-        Descriptor = new File(Archivo.getParent() + "\\Desc_" + Archivo.getName());
-        Lineas = new File(Archivo.getParent() + "\\Lineas_" + Archivo.getName());
+        Archivo = new File("C:/MEIA/arbolbinario.txt");
+        Descriptor = new File("C:/MEIA/Desc_arbolbinario.txt");
+        Lineas = new File("C:/MEIA/Lineas_arbolbinario.txt");
         if(!Archivo.exists()) Archivo.createNewFile();
         if (!Descriptor.exists()) {
             Escritor = new BufferedWriter(new FileWriter(Descriptor));
             WriteLine("Nombre del archivo:" + nombreArchivo);                
-            WriteLine("Fecha y hora de creaciÃ³n:" + Formato.format(new Date()));    
-            WriteLine("Fecha de Ãºltima modificaciÃ³n:" + Formato.format(new Date()));
+            WriteLine("Fecha y hora de creación:" + Formato.format(new Date()));    
+            WriteLine("Fecha de Ãºltima modificación:" + Formato.format(new Date()));
             WriteLine("Raiz:-1");     
             WriteLine("NÃºmero de Registros:0");
             WriteLine("Registros Activos:0");
