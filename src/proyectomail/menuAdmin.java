@@ -122,6 +122,11 @@ public class menuAdmin extends javax.swing.JFrame {
         });
 
         btnEnviarFuera.setText("Enviar Correo Fuera");
+        btnEnviarFuera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarFueraActionPerformed(evt);
+            }
+        });
 
         btnEntrada.setText("Bandeja de Entrada");
         btnEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -278,6 +283,15 @@ public class menuAdmin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnEnviarLocalActionPerformed
 
+
+    private void btnEnviarFueraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarFueraActionPerformed
+        // TODO add your handling code here:
+        conexionGrupos mensaje = new conexionGrupos(txtNombre.getText());
+        mensaje.setVisible(true);
+        
+        
+    }//GEN-LAST:event_btnEnviarFueraActionPerformed
+
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
         try {
             BandejaEntrada bEntrada = new BandejaEntrada(txtNombre.getText());
@@ -295,6 +309,7 @@ public class menuAdmin extends javax.swing.JFrame {
             Logger.getLogger(menuAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEnviadosActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -321,6 +336,12 @@ public class menuAdmin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(menuAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
