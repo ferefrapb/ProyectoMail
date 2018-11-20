@@ -137,7 +137,7 @@ public class nuevoCorreoLocal extends javax.swing.JFrame {
             
             SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");   
             
-            ArbolBinario arbol = new ArbolBinario("arbolbianrio.txt","metadato","|");
+            ArbolBinario arbol = new ArbolBinario("arbolbinario.txt","metadato","|");
             
             
             

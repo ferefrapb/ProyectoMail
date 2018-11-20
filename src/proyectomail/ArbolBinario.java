@@ -297,6 +297,7 @@ public class ArbolBinario {
                     }
                 }
                 else{
+                    datos[0] = datos[0].replaceAll("[^0-9]", "");
                     Actual = Integer.parseInt(datos[0].trim());
                     if (Actual != -1) {
                          Registro = ObtenerRegistro(Actual);  
@@ -325,7 +326,10 @@ public class ArbolBinario {
         Obj1[2] = "";
         do{
             datos = Registro.split(Pattern.quote("|")); 
-            if (datos[3].trim().equals(Emisor)) {
+            
+            if (!datos[0].trim().equals("")) 
+            {
+                if (datos[3].trim().equals(Emisor)) {
                 ListaDatos.addAll(BusquedaRecursiva(Actual, Emisor));
                 centinela = true;
             }          
@@ -345,6 +349,7 @@ public class ArbolBinario {
                     }
                 }
                 else{
+                    datos[0] = datos[0].replaceAll("[^0-9]", "");
                     Actual = Integer.parseInt(datos[0].trim());
                     if (Actual != -1) {
                          Registro = ObtenerRegistro(Actual);  
@@ -354,6 +359,12 @@ public class ArbolBinario {
                     }
                 }
             }
+            }
+            else
+            {
+               centinela = true;
+            }        
+            
         } while(!centinela);
         return ListaDatos;
     }
