@@ -45,7 +45,7 @@ public class ArbolBinario {
         this.Formato = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");   
         NombreArchivo = nombreArchivo;
         String Linea;
-        tamaño = ConvertirACadena(" ", " ", Formato.format(new Date()), " ").length() + 2;
+        tamaño = ConvertirACadena(" ", " ", Formato.format(new Date()), " ", " ").length() + 2;
         LineasVacias = new ArrayList();
         
         Archivo = new File("C:/MEIA/arbolbinario.txt");
@@ -125,19 +125,19 @@ public class ArbolBinario {
         Descriptor = new File("C:/MEIA/Desc_arbolbinario.txt");
     }
     
-    public void Insertar(String Receptor, String Emisor, String Fecha, String Mensaje) throws IOException{
+    public void Insertar(String Receptor, String Emisor, String Fecha, String Mensaje, String Asunto) throws IOException{
         int Posicion = 0;
         int Actual = 0;
         if (LineasVacias.isEmpty()) {
            Escritor = new BufferedWriter(new FileWriter(Archivo, true)); 
-           WriteLine(ConvertirACadena(Receptor, Emisor, Fecha, Mensaje));           
+           WriteLine(ConvertirACadena(Receptor, Emisor, Fecha, Mensaje, Asunto));           
            Posicion = Registros + 1;
            Escritor.close();           
         }
         else{
            RArchivo = new RandomAccessFile(Archivo.getAbsolutePath(), "rw");
            RArchivo.seek((LineasVacias.get(0) - 1) * tamaño);
-           RArchivo.writeBytes(ConvertirACadena(Receptor, Emisor, Fecha, Mensaje)+ "\r\n");
+           RArchivo.writeBytes(ConvertirACadena(Receptor, Emisor, Fecha, Mensaje, Asunto)+ "\r\n");
            Posicion = LineasVacias.get(0);
            LineasVacias.remove(0);
            RArchivo.close();
@@ -200,7 +200,7 @@ public class ArbolBinario {
         ActualizarDescriptor();
     }
     
-    private String ConvertirACadena(String Receptor, String Emisor, String Fecha, String Mensaje){
+    private String ConvertirACadena(String Receptor, String Emisor, String Fecha, String Mensaje, String Asunto){
         List<String> Datos =  new ArrayList();
         Datos.add(PadRight("-1", 30, " "));
         Datos.add(PadRight("-1", 30, " "));
@@ -208,8 +208,9 @@ public class ArbolBinario {
         Datos.add(PadRight(Emisor, 20, " "));
         Datos.add(PadRight(Fecha, 30, " "));
         Datos.add(PadRight(Mensaje, 255, " "));
+        Datos.add(PadRight(Asunto, 255, " "));
         Datos.add(PadRight("1", 5, " "));
-        return Join(Datos.toArray(new String[7]), "|");               
+        return Join(Datos.toArray(new String[8]), "|");               
     }
     
     private String ObtenerRegistro(int num) throws FileNotFoundException, IOException{

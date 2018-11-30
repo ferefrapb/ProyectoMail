@@ -201,21 +201,35 @@ public class nuevoCorreoLocal extends javax.swing.JFrame {
     
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         
-        
         try {
             
-            SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");   
-            
-            ArbolBinario arbol = new ArbolBinario("arbolbianrio.txt","metadato","|");
-            
-            if(BuscarUsuario(tbxUsuario.getText()))
+            if (tbAsunto.getText().isEmpty()||tbAsunto.getText().equals("")) 
             {
-                            
-            arbol.Insertar(tbxUsuario.getText(), usuario, Formato.format(new Date()), tbxMensaje.getText());
+                if (tbxMensaje.getText().isEmpty()||tbxMensaje.getText().equals("")) 
+                {
+                    SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");   
+            
+                    ArbolBinario arbol = new ArbolBinario("arbolbinario.txt","metadato","|");
+
+                    if(BuscarUsuario(tbxUsuario.getText()))
+                    {              
+                        arbol.Insertar(tbxUsuario.getText(), usuario, Formato.format(new Date()), tbxMensaje.getText(), tbAsunto.getText());
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(rootPane, "Usuario no registrado en el sistema.");
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(rootPane, "Debe Ingresar Mensaje para Enviar Correo.");
+                    tbxMensaje.requestFocus();
+                }
             }
             else
             {
-                JOptionPane.showMessageDialog(rootPane, "Usuario no registrado en el sistema.");
+                 JOptionPane.showMessageDialog(rootPane, "Debe Ingresar Asunto para Enviar Correo.");
+                 tbAsunto.requestFocus();
             }
 
             
