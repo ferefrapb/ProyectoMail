@@ -89,6 +89,7 @@ public class BandejaEntrada extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jBandejaEntrada = new javax.swing.JTextArea();
+        bActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -102,6 +103,13 @@ public class BandejaEntrada extends javax.swing.JFrame {
         jBandejaEntrada.setColumns(20);
         jBandejaEntrada.setRows(5);
         jScrollPane1.setViewportView(jBandejaEntrada);
+
+        bActualizar.setText("Actualizar");
+        bActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,7 +126,9 @@ public class BandejaEntrada extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(74, 74, 74)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 90, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(bActualizar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,14 +137,45 @@ public class BandejaEntrada extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(bActualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizarActionPerformed
+        ActualizarBandeja();
+        boolean Bandera=true;
+        int i=0;
+        jBandejaEntrada.setText("");
+        if(!lUsuario.getText().isEmpty()){
+                while(Bandera && i < User.MensajesRecibidos.size())
+                {
+                    /*if(User.MensajesRecibidos.get(i)[0].equals(lUsuario.getText().trim()))
+                    {*/
+                        if (jBandejaEntrada.getText().length()!=0)
+                        {
+                            jBandejaEntrada.append("\n\r"+"\n\r");
+                        }
+                        jBandejaEntrada.append(User.MensajesRecibidos.get(i)[0]+":\n\r"+User.MensajesRecibidos.get(i)[2]+"\n\r"+User.MensajesRecibidos.get(i)[1]);
+                    /*}
+                    else
+                    {*/
+                        if (!jBandejaEntrada.getText().equals(""))
+                        {
+                            Bandera=false;
+                        }
+                    /*}*/
+                    i++;
+                }
+            }
+        
+    }//GEN-LAST:event_bActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +213,7 @@ public class BandejaEntrada extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bActualizar;
     private javax.swing.JTextArea jBandejaEntrada;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
